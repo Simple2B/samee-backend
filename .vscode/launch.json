@@ -5,6 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "pytest",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "tests/test_client.py",
+                "-k",
+                "test_add_client_info" ,
+            ],
+            "justMyCode": false
+        },
+        {
             "name": "Debug",
             "type": "python",
             "request": "launch",
