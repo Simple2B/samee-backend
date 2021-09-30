@@ -16,10 +16,10 @@ def create_app(environment="development"):
     from app.views import (
         main_blueprint,
         client_blueprint,
-        auth_blueprint,
+        # auth_blueprint,
     )
     from app.models import (
-        User,
+        # User,
         Client,
     )
 
