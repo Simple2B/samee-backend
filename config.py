@@ -14,6 +14,14 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = False
 
+     # FLASK_ADMIN_SWATCH = ""
+    BASIC_AUTH_USERNAME = os.environ.get(
+        "BASIC_AUTH_USERNAME", "Please set admin username"
+    )
+    BASIC_AUTH_PASSWORD = os.environ.get(
+        "BASIC_AUTH_PASSWORD", "Please set admin password"
+    )
+
     @staticmethod
     def configure(app):
         # Implement this method to do further configuration on your app.
