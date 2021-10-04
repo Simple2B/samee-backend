@@ -1,3 +1,5 @@
+import csv
+import sqlite3
 from flask import (
     render_template,
     flash,
@@ -39,6 +41,16 @@ class ClientModelView(sqla.ModelView):
     @action("download", text="Download")
     def  downlad():
         pass
+    # conn = sqlite3.connect(dbfile)
+    # conn.text_factory = str ## my current (failed) attempt to resolve this
+    # cur = conn.cursor()
+    # data = cur.execute("SELECT * FROM mytable")
+    # print("Exporting data into CSV............")
+    # with open('output.csv', 'wb') as f:
+    #     writer = csv.writer(f)
+    #     writer.writerow(['Column 1', 'Column 2', ...])
+    #     writer.writerows(data)
+
     column_searchable_list = ["email"]
     # column_filters = [
     #     "first_name",
