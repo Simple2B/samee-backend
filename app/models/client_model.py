@@ -1,12 +1,11 @@
-from enum import Enum
 from pydantic import BaseModel
 from datetime import datetime
 from pydantic.networks import EmailStr
 
-
-from .client import(
+from .client import (
     MaritalStatus,
 )
+
 
 class ClientModel(BaseModel):
     name: str
@@ -21,6 +20,13 @@ class ClientModel(BaseModel):
     guaranteed_solution: str
     type_of_save: str
     amount_of_money: str
-    marital_status: MaritalStatus
     smoking: str
     sex: str
+    saving_years: str
+    total_savings: str
+    fonds_percent: str
+    savings_percent: str
+    interest: str
+    occupation: str
+    amount_of_fonds: str
+    marital_status: MaritalStatus

@@ -1,5 +1,4 @@
 import pytest
-import json
 from app import db, create_app
 
 
@@ -34,14 +33,21 @@ def test_add_client_info(client):
             "guaranteed_solution": "Yes",
             "type_of_save": "Yearly",
             "amount_of_money": "4124",
-            "marital_status": "Unmarried",
             "smoking": "No",
             "sex": "Female",
+            "saving_years": "10",
+            "total_savings": "150000",
+            "fonds_percent": "50",
+            "savings_percent": "50",
+            "interest": "Salary",
+            "occupation": "work",
+            "amount_of_fonds": "10000",
+            "marital_status": "Unmarried",
         },
         follow_redirects=True,
     )
     assert response
-    assert response.status_code == 200, response
+    assert response.status_code == 200
 
     """Test client info add with bad email"""
     response_bad_email = client.post(
@@ -59,9 +65,16 @@ def test_add_client_info(client):
             "guaranteed_solution": "Yes",
             "type_of_save": "Yearly",
             "amount_of_money": "4124",
-            "marital_status": "Unmarried",
             "smoking": "No",
             "sex": "Female",
+            "saving_years": "10",
+            "total_savings": "150000",
+            "fonds_percent": "50",
+            "savings_percent": "50",
+            "interest": "Salary",
+            "occupation": "work",
+            "amount_of_fonds": "10000",
+            "marital_status": "Unmarried",
         },
         follow_redirects=True,
     )
@@ -86,13 +99,20 @@ def test_add_client_info(client):
             "guaranteed_solution": "Yes",
             "type_of_save": "Yearly",
             "amount_of_money": "4124",
-            "marital_status": "No",
             "smoking": "No",
             "sex": "Female",
+            "saving_years": "10",
+            "total_savings": "150000",
+            "fonds_percent": "50",
+            "savings_percent": "50",
+            "interest": "Salary",
+            "occupation": "work",
+            "amount_of_fonds": "10000",
+            "marital_status": "No",
         },
         follow_redirects=True,
     )
     assert response_enum_object
-    assert response_enum_object.status_code == 400, response_enum_object
+    assert response_enum_object.status_code == 400
     data = response_enum_object.json
     assert data["validation_error"]["body_params"][0]["msg"] == "value is not a valid enumeration member; permitted: 'Unmarried', 'Married', 'Divorced', 'Widowed', 'Legally Separated'"

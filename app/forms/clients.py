@@ -1,17 +1,13 @@
-from re import S
 from flask_wtf import FlaskForm
-from wtforms import StringField, ValidationError, SelectField, IntegerField
+from wtforms import StringField, ValidationError, SelectField
 from wtforms.fields.core import DateTimeField
-from wtforms.validators import DataRequired, Email, Length, EqualTo
+from wtforms.validators import DataRequired, Email
 
 from app.models import (
     Client,
-    GuaranteedSolution,
-    Sex,
-    Smoking,
-    TypeOfSave,
     MaritalStatus,
 )
+
 
 class ClientInfoFOrm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
@@ -23,12 +19,19 @@ class ClientInfoFOrm(FlaskForm):
     nationality = StringField("Nationality", validators=[DataRequired()])
     birthday = DateTimeField("Birthday", validators=[DataRequired()])
     profession = StringField("Profession", validators=[DataRequired()])
-    guaranteed_solution = SelectField("Solution", validators=[DataRequired()])
-    type_of_save = SelectField("Type of save", validators=[DataRequired()])
+    guaranteed_solution = StringField("Solution", validators=[DataRequired()])
+    type_of_save = StringField("Type of save", validators=[DataRequired()])
     amount_of_money = StringField("amount_of_money", validators=[DataRequired()])
+    smoking = StringField("Smoking", validators=[DataRequired()])
+    sex = StringField("Sex", validators=[DataRequired()])
+    saving_years = StringField("saving_years", validators=[DataRequired()])
+    total_savings = StringField("total_savings", validators=[DataRequired()])
+    fonds_percent = StringField("fonds_percent", validators=[DataRequired()])
+    savings_percent = StringField("saving_years", validators=[DataRequired()])
+    interest = StringField("interest", validators=[DataRequired()])
+    occupation = StringField("occupation", validators=[DataRequired()])
+    amount_of_fonds = StringField("amount_of_fonds", validators=[DataRequired()])
     marital_status = SelectField("marital_status", choices=MaritalStatus, default=MaritalStatus.UNMARRIED)
-    smoking = SelectField("Smoking", validators=[DataRequired()])
-    sex = SelectField("Sex", validators=[DataRequired()])
 
     def validate_email(form, field):
         if Client.query.filter_by(email=field.data).first() is not None:
