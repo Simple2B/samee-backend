@@ -4,5 +4,7 @@
         "pydantic",
         "samme",
         "sqla"
-    ]
+    ],
+    "python.pythonPath": ".venv/bin/python",
+    
 }
