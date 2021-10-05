@@ -27,6 +27,7 @@ def add_client_info(body: ClientModel):
         profession=body.profession,
         guaranteed_solution=body.guaranteed_solution,
         type_of_save=body.type_of_save,
+        amount_of_money=body.amount_of_money,
         marital_status=body.marital_status,
         smoking=body.smoking,
         sex=body.sex,

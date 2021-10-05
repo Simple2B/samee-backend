@@ -1,6 +1,6 @@
 from re import S
 from flask_wtf import FlaskForm
-from wtforms import StringField, ValidationError, SelectField
+from wtforms import StringField, ValidationError, SelectField, IntegerField
 from wtforms.fields.core import DateTimeField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 
@@ -23,11 +23,12 @@ class ClientInfoFOrm(FlaskForm):
     nationality = StringField("Nationality", validators=[DataRequired()])
     birthday = DateTimeField("Birthday", validators=[DataRequired()])
     profession = StringField("Profession", validators=[DataRequired()])
-    guaranteed_solution = SelectField("Solution", choices=GuaranteedSolution, default=GuaranteedSolution.NO)
-    type_of_save = SelectField("Type of save", choices=TypeOfSave, default=TypeOfSave.YEARLY)
+    guaranteed_solution = SelectField("Solution", validators=[DataRequired()])
+    type_of_save = SelectField("Type of save", validators=[DataRequired()])
+    amount_of_money = StringField("amount_of_money", validators=[DataRequired()])
     marital_status = SelectField("marital_status", choices=MaritalStatus, default=MaritalStatus.UNMARRIED)
-    smoking = SelectField("Smoking", choices=Smoking, default=Smoking.NO)
-    sex = SelectField("Sex", choices=Sex, default=Sex.FEMALE)
+    smoking = SelectField("Smoking", validators=[DataRequired()])
+    sex = SelectField("Sex", validators=[DataRequired()])
 
     def validate_email(form, field):
         if Client.query.filter_by(email=field.data).first() is not None:

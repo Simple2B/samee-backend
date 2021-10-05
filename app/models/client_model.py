@@ -20,6 +20,7 @@ class ClientModel(BaseModel):
     profession: str
     guaranteed_solution: str
     type_of_save: str
+    amount_of_money: str
     marital_status: MaritalStatus
     smoking: str
     sex: str

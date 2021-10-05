@@ -30,6 +30,7 @@ class Client(db.Model, ModelMixin):
     profession = db.Column(db.String(128))
     guaranteed_solution = db.Column(db.String(32))
     type_of_save = db.Column(db.String(32))
+    amount_of_money = db.Column(db.String(32))
     marital_status = db.Column(db.Enum(MaritalStatus), default=MaritalStatus.UNMARRIED)
     smoking = db.Column(db.String(16))
     sex = db.Column(db.String(32))
