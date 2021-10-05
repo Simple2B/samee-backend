@@ -18,11 +18,6 @@ def client():
         db.drop_all()
 
 
-def test_client_pages(client):
-    response = client.get("/add")
-    assert response.status_code == 200
-
-
 def test_add_client_info(client):
     response = client.post(
         "/add",
@@ -38,6 +33,7 @@ def test_add_client_info(client):
             "profession": "teacher 65%",
             "guaranteed_solution": "Yes",
             "type_of_save": "Yearly",
+            "amount_of_money": "4124",
             "marital_status": "Unmarried",
             "smoking": "No",
             "sex": "Female",
@@ -62,6 +58,7 @@ def test_add_client_info(client):
             "profession": "teacher 65%",
             "guaranteed_solution": "Yes",
             "type_of_save": "Yearly",
+            "amount_of_money": "4124",
             "marital_status": "Unmarried",
             "smoking": "No",
             "sex": "Female",
@@ -88,6 +85,7 @@ def test_add_client_info(client):
             "profession": "teacher 65%",
             "guaranteed_solution": "Yes",
             "type_of_save": "Yearly",
+            "amount_of_money": "4124",
             "marital_status": "No",
             "smoking": "No",
             "sex": "Female",
