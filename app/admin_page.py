@@ -1,17 +1,13 @@
-import csv
-import sqlite3
 from flask import (
     Response,
+    redirect,
 )
 from flask_admin import Admin
-from flask_admin.actions import action
 from flask_admin.contrib import sqla
 from flask_admin.base import expose, AdminIndexView
-
-from flask_security import current_user
 from werkzeug.exceptions import HTTPException
 
-
+from app.logger import log
 from app import basic_auth
 from app.models import Client
 
@@ -37,6 +33,16 @@ class MyView(AdminIndexView):
 class ClientModelView(sqla.ModelView):
     column_searchable_list = ["email"]
     can_export = True
+
+    def is_accessible(self):
+        if not basic_auth.authenticate():
+            log(log.WARNING, "Not authenticated.")
+            raise AuthException("Not authenticated.")
+        else:
+            return True
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(basic_auth.challenge())
 
 
 def init_admin(app, db):
