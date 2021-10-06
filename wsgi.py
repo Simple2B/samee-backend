@@ -8,6 +8,7 @@ from app.admin_page import init_admin
 app = create_app()
 admin_page = init_admin(app, db)
 
+
 # flask cli context setup
 @app.shell_context_processor
 def get_context():

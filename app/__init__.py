@@ -13,6 +13,7 @@ db = SQLAlchemy()
 basic_auth = BasicAuth()
 bootstrap = Bootstrap()
 
+
 def create_app(environment="development"):
 
     from config import config
