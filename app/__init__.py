@@ -4,22 +4,26 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from werkzeug.exceptions import HTTPException
+from flask_basicauth import BasicAuth
+from flask_bootstrap import Bootstrap
 
 # instantiate extensions
 login_manager = LoginManager()
 db = SQLAlchemy()
-
+basic_auth = BasicAuth()
+bootstrap = Bootstrap()
 
 def create_app(environment="development"):
 
     from config import config
     from app.views import (
         main_blueprint,
-        auth_blueprint,
+        client_blueprint,
+        # auth_blueprint,
     )
     from app.models import (
-        User,
-        AnonymousUser,
+        # User,
+        Client,
     )
 
     # Instantiate app.
@@ -32,20 +36,24 @@ def create_app(environment="development"):
 
     # Set up extensions.
     db.init_app(app)
-    login_manager.init_app(app)
+
+    bootstrap.init_app(app)
+    basic_auth.init_app(app)
+
+    # login_manager.init_app(app)
 
     # Register blueprints.
-    app.register_blueprint(auth_blueprint)
+
     app.register_blueprint(main_blueprint)
+    app.register_blueprint(client_blueprint)
 
     # Set up flask login.
     @login_manager.user_loader
-    def get_user(id):
-        return User.query.get(int(id))
+    def get_client(id):
+        return Client.query.get(int(id))
 
-    login_manager.login_view = "auth.login"
+    login_manager.login_view = "auth.signin"
     login_manager.login_message_category = "info"
-    login_manager.anonymous_user = AnonymousUser
 
     # Error handlers.
     @app.errorhandler(HTTPException)

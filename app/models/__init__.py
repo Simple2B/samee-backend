@@ -1,2 +1,6 @@
 # flake8: noqa F401
-from .user import User, AnonymousUser
+from .client import (
+    Client,
+    MaritalStatus,
+)
+# from .user import User
