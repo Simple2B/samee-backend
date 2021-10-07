@@ -115,4 +115,5 @@ def test_add_client_info(client):
     assert response_enum_object
     assert response_enum_object.status_code == 400
     data = response_enum_object.json
-    assert data["validation_error"]["body_params"][0]["msg"] == "value is not a valid enumeration member; permitted: 'Unmarried', 'Married', 'Divorced', 'Widowed', 'Legally Separated'"
+    assert data["validation_error"]["body_params"][0]["msg"] == "value is not a valid enumeration member;"\
+        " permitted: 'Unmarried', 'Married', 'Divorced', 'Widowed', 'Legally Separated'"

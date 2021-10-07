@@ -1,13 +1,16 @@
 {
     "cSpell.words": [
-        "Сlient",
-        "pydantic",
-        "samme",
-        "sqla"
+        "Сlient", "pydantic", "samme", "sqla"
     ],
     "python.pythonPath": ".venv/bin/python",
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
-    
+
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/.venv/*/**": true
+    }
+
 }
