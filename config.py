@@ -14,7 +14,7 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = False
 
-     # FLASK_ADMIN_SWATCH = ""
+    # FLASK_ADMIN_SWATCH = ""
     BASIC_AUTH_USERNAME = os.environ.get(
         "BASIC_AUTH_USERNAME", "Please set admin username"
     )

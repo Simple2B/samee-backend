@@ -1,9 +1,11 @@
 {
     "cSpell.words": [
-        "Сlient",
+        "jsonify",
         "pydantic",
         "samme",
-        "sqla"
+        "sqla",
+        "twilio",
+        "Сlient"
     ],
     "python.pythonPath": ".venv/bin/python",
     "python.linting.pylintEnabled": false,
