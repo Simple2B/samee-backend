@@ -116,3 +116,17 @@ def test_add_client_info(client):
     assert response_enum_object.status_code == 400
     data = response_enum_object.json
     assert data["validation_error"]["body_params"][0]["msg"] == "value is not a valid enumeration member; permitted: 'Unmarried', 'Married', 'Divorced', 'Widowed', 'Legally Separated'"
+
+    """Test Client phone verification"""
+    client_phone_verification = client.post(
+        "/phone_validation",
+        json={
+            "id": "1",
+            "phone_validation_code": "312456",
+        },
+        follow_redirects=True,
+    )
+    assert client_phone_verification
+    assert client_phone_verification.status_code == 200
+    # data = client_phone_verification.json()
+    # assert data[]
