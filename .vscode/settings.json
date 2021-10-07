@@ -1,10 +1,15 @@
 {
     "cSpell.words": [
         "jsonify",
+        "noqa",
+        "port",
+        "postgres",
+        "postgresql",
         "pydantic",
         "samme",
         "sqla",
         "twilio",
+        "wtforms",
         "Сlient"
     ],
     "python.pythonPath": ".venv/bin/python",
