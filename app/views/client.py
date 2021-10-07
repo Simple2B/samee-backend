@@ -60,10 +60,12 @@ def add_client_info(body: ClientModel):
 @client_blueprint.route("/phone_validation", methods=["Post"])
 @validate
 def phone_validation(body: ClientPhoneValidation):
-    if body.id == Client.id:
-        if body.phone_validation_code == Client.phone_validation_code:
-            Client.phone_valid = True
-            Client.save()
+    existed_client = Client.query.filter_by(id=body.id).first()
+    if existed_client:
+        if body.phone_validation_code == existed_client.phone_validation_code:
+            existed_client.phone_valid = True
+            existed_client.save()
             return jsonify(dict(message="Client phone number has been successfully verified", category="success"))
         return jsonify(dict(message="Bad phone verification code!", category="error")), 404
-    return jsonify(dict(message="No such Client id", category="error")), 404
+    else:
+        return jsonify(dict(message="No such Client id", category="error")), 404
