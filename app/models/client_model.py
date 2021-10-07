@@ -30,3 +30,8 @@ class ClientModel(BaseModel):
     occupation: str
     amount_of_fonds: str
     marital_status: MaritalStatus
+
+
+class ClientPhoneValidation(BaseModel):
+    id: int
+    phone_validation_code: str

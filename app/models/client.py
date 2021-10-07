@@ -1,8 +1,13 @@
 from enum import Enum
-# from sqlalchemy import Column, Integer, DateTime
+from random import randint
+from datetime import datetime
 
 from app import db
 from app.models.utils import ModelMixin
+
+
+def gen_validation_code() -> str:
+    return str.join("", [str(randint(0, 9)) for i in range(6)])
 
 
 class MaritalStatus(str, Enum):
@@ -40,6 +45,9 @@ class Client(db.Model, ModelMixin):
     occupation = db.Column(db.String(64))
     amount_of_fonds = db.Column(db.String(32))
     marital_status = db.Column(db.Enum(MaritalStatus), default=MaritalStatus.UNMARRIED)
+    phone_valid = db.Column(db.Boolean, default=False)
+    phone_validation_code = db.Column(db.String(6), default=gen_validation_code)
+    created_at = db.Column(db.DateTime, default=datetime.now)
 
     def __repr__(self):
         return f"<{self.id} : {self.username}>"

@@ -1,12 +1,18 @@
-from flask import Blueprint, flash, jsonify
+import os
+
+from flask import Blueprint, session, jsonify
 from flask_pydantic import validate
+from twilio.rest import Client as TwilioClient
 
-
-from app.models.client_model import ClientModel
+from app.models.client_model import ClientModel, ClientPhoneValidation
 from app.models import Client
 from app.logger import log
 
 client_blueprint = Blueprint("/client", __name__)
+
+account_sid = os.environ.get("ACCOUNT_SID")
+auth_token = os.environ.get("AUTH_TOKEN")
+service_sid = os.environ.get("SERVICE_SID")
 
 
 @client_blueprint.route("/add", methods=["POST"])
@@ -37,6 +43,27 @@ def add_client_info(body: ClientModel):
         amount_of_fonds=body.amount_of_fonds,
         marital_status=body.marital_status,
     ).save()
-    flash("Client info added successfully!", "success")
+
+    client_verify = TwilioClient(account_sid, auth_token)
+    message = client_verify.messages.create(
+        messaging_service_sid=service_sid,
+        body=client.phone_validation_code,
+        to=Client.phone_number
+    )
+
     log(log.INFO, "Client %s successfully added", client.name)
-    return jsonify("OK")
+    log(log.INFO, "Message to number: %s has been sent", message.to)
+    session["client_id"] = client.id
+    return jsonify({"Client_id": client.id})
+
+
+@client_blueprint.route("/phone_validation", methods=["Post"])
+@validate
+def phone_validation(body: ClientPhoneValidation):
+    if body.id == Client.id:
+        if body.phone_validation_code == Client.phone_validation_code:
+            Client.phone_valid = True
+            Client.save()
+            return jsonify(message="Client phone number has been successfully verified", category="success", status=200)
+        return jsonify(message="Bad phone verification code!", category="error", status=404)
+    return jsonify(message="No such Client id", category="error", status=404)
