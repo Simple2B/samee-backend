@@ -1,14 +1,16 @@
 version: "3.8"
 services:
-  # db:
-  #   image: postgres
-  #   volumes:
-  #     - db_data:/var/lib/postgresql/data
-  #   environment:
-  #     POSTGRES_PASSWORD: ${DB_MAIN_PASSWORD}
-  #     POSTGRES_DB: recruitsim
-  #   # ports:
-  #   #   - 5432:5432
+  db:
+    image: postgres:12
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+    ports:
+      - 127.0.0.1:${LOCAL_DB_PORT}:5432
+    # restart: always
 
   app:
     build: .
@@ -18,7 +20,7 @@ services:
     # depends_on:
     #   - db
     # volumes:
-      # - ./:/app
+    # - ./:/app
     environment:
       - FLASK_APP=run:app
       - FLASK_ENV=production
