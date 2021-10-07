@@ -20,10 +20,8 @@ def create_app(environment="development"):
     from app.views import (
         main_blueprint,
         client_blueprint,
-        # auth_blueprint,
     )
     from app.models import (
-        # User,
         Client,
     )
 
@@ -40,8 +38,6 @@ def create_app(environment="development"):
 
     bootstrap.init_app(app)
     basic_auth.init_app(app)
-
-    # login_manager.init_app(app)
 
     # Register blueprints.
 
