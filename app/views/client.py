@@ -64,6 +64,6 @@ def phone_validation(body: ClientPhoneValidation):
         if body.phone_validation_code == Client.phone_validation_code:
             Client.phone_valid = True
             Client.save()
-            return jsonify(message="Client phone number has been successfully verified", category="success", status=200)
-        return jsonify(message="Bad phone verification code!", category="error", status=404)
-    return jsonify(message="No such Client id", category="error", status=404)
+            return jsonify(dict(message="Client phone number has been successfully verified", category="success"))
+        return jsonify(dict(message="Bad phone verification code!", category="error")), 404
+    return jsonify(dict(message="No such Client id", category="error")), 404
