@@ -40,7 +40,6 @@ def create_app(environment="development"):
     basic_auth.init_app(app)
 
     # Register blueprints.
-
     app.register_blueprint(main_blueprint)
     app.register_blueprint(client_blueprint)
 
