@@ -39,6 +39,7 @@ def add_client_info(body: ClientModel):
     ).save()
     log(log.INFO, "Client %s successfully added", client.name)
     sent_sms(client.phone_validation_code, client.phone_number)
+    log(log.INFO, "Sms was sent to %s number", client.phone_number)
     return jsonify({"Client_id": client.id})
 
 
