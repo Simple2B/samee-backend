@@ -1,6 +1,9 @@
 import os
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
+from dotenv import load_dotenv
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(os.path.dirname(BASE_DIR), ".env"))
 
 
 class BaseConfig(object):
@@ -23,9 +26,9 @@ class BaseConfig(object):
     )
 
     """Twilio configuration"""
-    twilio_account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
-    twilio_auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
-    twilio_service_sid = os.environ.get("TWILIO_SERVICE_SID")
+    TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "Please set twilio account sid")
+    TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", "Please set twilio auth token")
+    TWILIO_SERVICE_SID = os.environ.get("TWILIO_SERVICE_SID", "Please set twilio service sid")
 
     @staticmethod
     def configure(app):
@@ -39,7 +42,7 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "DEVEL_DATABASE_URL",
-        "sqlite:///" + os.path.join(base_dir, "database-devel.sqlite3"),
+        "sqlite:///" + os.path.join(BASE_DIR, "database-devel.sqlite3"),
     )
 
 
@@ -50,7 +53,7 @@ class TestingConfig(BaseConfig):
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "TEST_DATABASE_URL",
-        "sqlite:///" + os.path.join(base_dir, "database-test.sqlite3"),
+        "sqlite:///" + os.path.join(BASE_DIR, "database-test.sqlite3"),
     )
 
 
@@ -58,7 +61,7 @@ class ProductionConfig(BaseConfig):
     """Production configuration."""
 
     SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "DATABASE_URL", "sqlite:///" + os.path.join(base_dir, "database.sqlite3")
+        "DATABASE_URL", "sqlite:///" + os.path.join(BASE_DIR, "database.sqlite3")
     )
     WTF_CSRF_ENABLED = True
 

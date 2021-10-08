@@ -1,9 +1,10 @@
-from flask import Blueprint, session, jsonify
+from flask import Blueprint, jsonify
 from flask_pydantic import validate
 
 from app.models.client_model import ClientModel, ClientPhoneValidation
 from app.models import Client
 from app.logger import log
+from app.controllers.twilio import sent_sms
 
 client_blueprint = Blueprint("/client", __name__)
 
@@ -36,10 +37,8 @@ def add_client_info(body: ClientModel):
         amount_of_fonds=body.amount_of_fonds,
         marital_status=body.marital_status,
     ).save()
-
     log(log.INFO, "Client %s successfully added", client.name)
-    # log(log.INFO, "Message to number: %s has been sent", message.to)
-    session["client_id"] = client.id
+    sent_sms(client.phone_validation_code, client.phone_number)
     return jsonify({"Client_id": client.id})
 
 
