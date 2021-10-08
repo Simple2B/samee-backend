@@ -22,6 +22,11 @@ class BaseConfig(object):
         "BASIC_AUTH_PASSWORD", "Please set admin password"
     )
 
+    """Twilio configuration"""
+    twilio_account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
+    twilio_auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+    twilio_service_sid = os.environ.get("TWILIO_SERVICE_SID")
+
     @staticmethod
     def configure(app):
         # Implement this method to do further configuration on your app.

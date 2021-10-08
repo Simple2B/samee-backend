@@ -1,18 +1,11 @@
-import os
-
 from flask import Blueprint, session, jsonify
 from flask_pydantic import validate
-from twilio.rest import Client as TwilioClient
 
 from app.models.client_model import ClientModel, ClientPhoneValidation
 from app.models import Client
 from app.logger import log
 
 client_blueprint = Blueprint("/client", __name__)
-
-account_sid = os.environ.get("ACCOUNT_SID")
-auth_token = os.environ.get("AUTH_TOKEN")
-service_sid = os.environ.get("SERVICE_SID")
 
 
 @client_blueprint.route("/add", methods=["POST"])
@@ -44,15 +37,8 @@ def add_client_info(body: ClientModel):
         marital_status=body.marital_status,
     ).save()
 
-    client_verify = TwilioClient(account_sid, auth_token)
-    message = client_verify.messages.create(
-        messaging_service_sid=service_sid,
-        body=client.phone_validation_code,
-        to=Client.phone_number
-    )
-
     log(log.INFO, "Client %s successfully added", client.name)
-    log(log.INFO, "Message to number: %s has been sent", message.to)
+    # log(log.INFO, "Message to number: %s has been sent", message.to)
     session["client_id"] = client.id
     return jsonify({"Client_id": client.id})
 
@@ -66,6 +52,7 @@ def phone_validation(body: ClientPhoneValidation):
             existed_client.phone_valid = True
             existed_client.save()
             return jsonify(dict(message="Client phone number has been successfully verified", category="success"))
-        return jsonify(dict(message="Bad phone verification code!", category="error")), 404
+        else:
+            return jsonify(dict(message="Bad phone verification code!", category="error")), 404
     else:
         return jsonify(dict(message="No such Client id", category="error")), 404
