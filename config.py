@@ -4,7 +4,6 @@ import os
 from dotenv import load_dotenv
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# load_dotenv(os.path.join(os.path.dirname(BASE_DIR), ".env"))
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
@@ -19,7 +18,6 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = False
 
-    # FLASK_ADMIN_SWATCH = ""
     BASIC_AUTH_USERNAME = os.environ.get(
         "BASIC_AUTH_USERNAME", "Please set admin username"
     )
@@ -31,6 +29,7 @@ class BaseConfig(object):
     TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "Please set twilio account sid")
     TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", "Please set twilio auth token")
     TWILIO_SERVICE_SID = os.environ.get("TWILIO_SERVICE_SID", "Please set twilio service sid")
+    TWILIO_PHONE_NUMBER = os.environ.get("TWILIO_PHONE_NUMBER", "Please set twilio phone number")
 
     @staticmethod
     def configure(app):

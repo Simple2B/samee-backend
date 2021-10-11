@@ -135,5 +135,3 @@ def test_add_client_info(client):
     )
     assert client_phone_verification
     assert client_phone_verification.status_code == 200
-    # data = client_phone_verification.json()
-    # assert data[]
