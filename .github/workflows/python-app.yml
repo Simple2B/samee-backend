@@ -38,3 +38,6 @@ jobs:
           poetry run pytest
         env:
           PHONE_NUMBER: "+380634136800"
+          ACCOUNT_SID: "ACa12efb21afa06ea80faaf10a81e65908"
+          AUTH_TOKEN: "b85aa8f15c05762e41aceb129aedcfa8"
+          SERVICE_SID: "MG2989696df239452604dd00c045c8455a"
