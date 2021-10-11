@@ -1,5 +1,5 @@
+from typing import Optional
 from pydantic import BaseModel
-from datetime import datetime
 from pydantic.networks import EmailStr
 
 from .client import (
@@ -8,29 +8,37 @@ from .client import (
 
 
 class ClientModel(BaseModel):
-    name: str
+    first_name: str
+    last_name: str
     email: EmailStr
+    city: str
+    street: str
+    street_number: str
     phone_number: str
-    address: str
-    zip_plus_town: str
-    nationality: str
-    birthday: datetime
+    zip: str
+    birthday: str
     profession: str
-    guaranteed_solution: str
+    solution: str
     type_of_save: str
     amount_of_money: str
+    amount_of_savings: Optional[str]
     smoking: str
     sex: str
-    saving_years: str
-    total_savings: str
-    fonds_percent: str
-    savings_percent: str
-    interest: str
-    occupation: str
-    amount_of_fonds: str
+    tax: str
+    scenario_optimistic: Optional[str]
+    scenario_pessimistic: Optional[str]
+    scenario_realistic: Optional[str]
+    final_capital: Optional[str]
+    saving_years: Optional[str]
+    total_savings: Optional[str]
+    fonds_percent: Optional[str]
+    savings_percent: Optional[str]
+    interest: Optional[str]
+    occupation: Optional[str]
+    amount_of_fonds: Optional[str]
     marital_status: MaritalStatus
 
 
 class ClientPhoneValidation(BaseModel):
-    id: int
+    client_id: int
     phone_validation_code: str
