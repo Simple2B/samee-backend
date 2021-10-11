@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 import os
 
 from dotenv import load_dotenv
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-load_dotenv(os.path.join(os.path.dirname(BASE_DIR), ".env"))
+# load_dotenv(os.path.join(os.path.dirname(BASE_DIR), ".env"))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
 class BaseConfig(object):
