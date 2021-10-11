@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
 import os
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
+from dotenv import load_dotenv
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
 class BaseConfig(object):
@@ -14,13 +18,18 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = False
 
-    # FLASK_ADMIN_SWATCH = ""
     BASIC_AUTH_USERNAME = os.environ.get(
         "BASIC_AUTH_USERNAME", "Please set admin username"
     )
     BASIC_AUTH_PASSWORD = os.environ.get(
         "BASIC_AUTH_PASSWORD", "Please set admin password"
     )
+
+    """Twilio configuration"""
+    TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "Please set twilio account sid")
+    TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", "Please set twilio auth token")
+    TWILIO_SERVICE_SID = os.environ.get("TWILIO_SERVICE_SID", "Please set twilio service sid")
+    TWILIO_PHONE_NUMBER = os.environ.get("TWILIO_PHONE_NUMBER", "Please set twilio phone number")
 
     @staticmethod
     def configure(app):
@@ -34,7 +43,7 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "DEVEL_DATABASE_URL",
-        "sqlite:///" + os.path.join(base_dir, "database-devel.sqlite3"),
+        "sqlite:///" + os.path.join(BASE_DIR, "database-devel.sqlite3"),
     )
 
 
@@ -45,7 +54,7 @@ class TestingConfig(BaseConfig):
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "TEST_DATABASE_URL",
-        "sqlite:///" + os.path.join(base_dir, "database-test.sqlite3"),
+        "sqlite:///" + os.path.join(BASE_DIR, "database-test.sqlite3"),
     )
 
 
@@ -53,7 +62,7 @@ class ProductionConfig(BaseConfig):
     """Production configuration."""
 
     SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "DATABASE_URL", "sqlite:///" + os.path.join(base_dir, "database.sqlite3")
+        "DATABASE_URL", "sqlite:///" + os.path.join(BASE_DIR, "database.sqlite3")
     )
     WTF_CSRF_ENABLED = True
 
