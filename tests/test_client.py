@@ -20,6 +20,7 @@ def client():
         db.drop_all()
 
 
+@pytest.mark.skipif(PHONE_NUMBER is None)
 def test_add_client_info(client):
     response = client.post(
         "/add",
