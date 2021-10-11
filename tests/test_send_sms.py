@@ -22,7 +22,7 @@ def client():
         db.drop_all()
 
 
-@pytest.mark.skipif(PHONE_NUMBER is None, reason="Need set test phone number")
+@pytest.mark.skipif(PHONE_NUMBER="Please set twilio phone number", reason="Need set test phone number")
 def test_send_sms(client):
     sms_test = send_sms("532513", PHONE_NUMBER)
     assert sms_test == f"Message to number: {PHONE_NUMBER} has been sent"

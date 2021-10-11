@@ -20,7 +20,7 @@ def client():
         db.drop_all()
 
 
-@pytest.mark.skipif(PHONE_NUMBER is None, reason="Need set test phone number")
+@pytest.mark.skipif(PHONE_NUMBER="Please set twilio phone number", reason="Need set test phone number")
 def test_add_client_info(client):
     response = client.post(
         "/add",
