@@ -36,8 +36,3 @@ jobs:
       - name: Test with pytest
         run: |
           poetry run pytest
-        env:
-          TWILIO_ACCOUNT_SID: "ACa12efb21afa06ea80faaf10a81e65908"
-          TWILIO_AUTH_TOKEN: "b85aa8f15c05762e41aceb129aedcfa8"
-          TWILIO_SERVICE_SID: "MG2989696df239452604dd00c045c8455a"
-          TWILIO_PHONE_NUMBER: "+380634136800"
