@@ -9,7 +9,6 @@ from .client import (
 
 class ClientModel(BaseModel):
     name: str
-    username: str
     email: EmailStr
     phone_number: str
     address: str

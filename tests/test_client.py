@@ -22,7 +22,6 @@ def test_add_client_info(client):
         "/add",
         json={
             "name": "Test Client",
-            "username": "test_client1",
             "email": "test_client@test.com",
             "phone_number": "+380522322343",
             "address": "France",
@@ -43,6 +42,9 @@ def test_add_client_info(client):
             "occupation": "work",
             "amount_of_fonds": "10000",
             "marital_status": "Unmarried",
+            "phone_valid": False,
+            "phone_validation_code": "235674",
+            "created_at": "2021-10-08 18:00:37",
         },
         follow_redirects=True,
     )
@@ -54,7 +56,6 @@ def test_add_client_info(client):
         "/add",
         json={
             "name": "Test Client",
-            "username": "test_client2",
             "email": "bad email",
             "phone_number": "+380422342343",
             "address": "France",
@@ -75,6 +76,9 @@ def test_add_client_info(client):
             "occupation": "work",
             "amount_of_fonds": "10000",
             "marital_status": "Unmarried",
+            "phone_valid": False,
+            "phone_validation_code": "235674",
+            "created_at": "2021-10-08 18:00:37"
         },
         follow_redirects=True,
     )
@@ -88,7 +92,6 @@ def test_add_client_info(client):
         "/add",
         json={
             "name": "Test Client",
-            "username": "test_client3",
             "email": "test_client3@test.com",
             "phone_number": "+380422322343",
             "address": "France",
@@ -109,20 +112,24 @@ def test_add_client_info(client):
             "occupation": "work",
             "amount_of_fonds": "10000",
             "marital_status": "No",
+            "phone_valid": False,
+            "phone_validation_code": "235674",
+            "created_at": "2021-10-08 18:00:37"
         },
         follow_redirects=True,
     )
     assert response_enum_object
     assert response_enum_object.status_code == 400
     data = response_enum_object.json
-    assert data["validation_error"]["body_params"][0]["msg"] == "value is not a valid enumeration member; permitted: 'Unmarried', 'Married', 'Divorced', 'Widowed', 'Legally Separated'"
+    assert data["validation_error"]["body_params"][0]["msg"] == "value is not a valid enumeration member;"\
+        " permitted: 'Unmarried', 'Married', 'Divorced', 'Widowed', 'Legally Separated'"
 
     """Test Client phone verification"""
     client_phone_verification = client.post(
         "/phone_validation",
         json={
             "id": "1",
-            "phone_validation_code": "312456",
+            "phone_validation_code": "235674",
         },
         follow_redirects=True,
     )

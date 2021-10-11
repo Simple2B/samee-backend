@@ -15,7 +15,6 @@ def add_client_info(body: ClientModel):
 
     client = Client(
         name=body.name,
-        username=body.username,
         email=body.email,
         phone_number=body.phone_number,
         address=body.address,
@@ -44,7 +43,7 @@ def add_client_info(body: ClientModel):
 
 
 @client_blueprint.route("/phone_validation", methods=["Post"])
-@validate
+@validate()
 def phone_validation(body: ClientPhoneValidation):
     existed_client = Client.query.filter_by(id=body.id).first()
     if existed_client:
