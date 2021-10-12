@@ -58,7 +58,7 @@ def add_client_info(body: ClientModel):
 @client_blueprint.route("/phone_validation", methods=["Post"])
 @validate()
 def phone_validation(body: ClientPhoneValidation):
-    existed_client = Client.query.filter_by(id=body.id).first()
+    existed_client = Client.query.filter_by(id=body.client_id).first()
     if existed_client:
         if body.phone_validation_code == existed_client.phone_validation_code:
             existed_client.phone_valid = True
