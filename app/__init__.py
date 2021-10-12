@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from werkzeug.exceptions import HTTPException
 from flask_basicauth import BasicAuth
 from flask_bootstrap import Bootstrap
+from flask_cors import CORS
 
 # instantiate extensions
 login_manager = LoginManager()
@@ -27,7 +28,7 @@ def create_app(environment="development"):
 
     # Instantiate app.
     app = Flask(__name__)
-
+    CORS(app)
     # Set app config.
     env = os.environ.get("FLASK_ENV", environment)
     app.config.from_object(config[env])

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 from pydantic.networks import EmailStr
 
@@ -18,24 +18,24 @@ class ClientModel(BaseModel):
     zip: str
     birthday: str
     profession: str
-    solution: str
+    solution: List[str]
     type_of_save: str
-    amount_of_money: str
-    amount_of_savings: Optional[str]
+    amount_of_money: int
+    amount_of_savings: Optional[int]
     smoking: str
     sex: str
-    tax: str
-    scenario_optimistic: Optional[str]
-    scenario_pessimistic: Optional[str]
-    scenario_realistic: Optional[str]
-    final_capital: Optional[str]
-    saving_years: Optional[str]
-    total_savings: Optional[str]
-    fonds_percent: Optional[str]
-    savings_percent: Optional[str]
-    interest: Optional[str]
+    tax: int
+    scenario_optimistic: Optional[int]
+    scenario_pessimistic: Optional[int]
+    scenario_realistic: Optional[int]
+    final_capital: Optional[int]
+    saving_years: Optional[int]
+    total_savings: Optional[int]
+    fonds_percent: Optional[int]
+    savings_percent: Optional[int]
+    interest: Optional[int]
     occupation: Optional[str]
-    amount_of_fonds: Optional[str]
+    amount_of_fonds: Optional[int]
     marital_status: MaritalStatus
 
 
