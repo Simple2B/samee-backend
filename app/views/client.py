@@ -6,7 +6,7 @@ from app.models import Client
 from app.logger import log
 from app.controllers.sms_send import send_sms
 
-client_blueprint = Blueprint("/client", __name__)
+client_blueprint = Blueprint("/client", __name__, url_prefix="/api")
 
 
 @client_blueprint.route("/add", methods=["POST"])
