@@ -14,7 +14,6 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = False
 
-     # FLASK_ADMIN_SWATCH = ""
     BASIC_AUTH_USERNAME = os.environ.get(
         "BASIC_AUTH_USERNAME", "Please set admin username"
     )
@@ -53,7 +52,7 @@ class ProductionConfig(BaseConfig):
     """Production configuration."""
 
     SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "DATABASE_URL", "sqlite:///" + os.path.join(base_dir, "database.sqlite3")
+        "DATABASE_URL", "sqlite:///" + os.path.join(base_dir, "db/database.sqlite3")
     )
     WTF_CSRF_ENABLED = True
 

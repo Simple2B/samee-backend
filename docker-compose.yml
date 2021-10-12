@@ -1,21 +1,12 @@
 version: "3.8"
 services:
-  sqlite3:
-    image: nouchka/sqlite3:latest
-    stdin_open: true
-    tty: true
-    volumes:
-      - ./db/:/root/db/
-
   app:
     build: .
     # restart: always
     ports:
       - 127.0.0.1:${APP_LOCAL_PORT}:5000
-    # depends_on:
-    #   - sqlite3
-    # volumes:
-    # - ./:/app
+    volumes:
+      - ./db:./db
     environment:
       - FLASK_APP=run:app
       - FLASK_ENV=production
