@@ -1,16 +1,14 @@
-FROM python:3.8
+FROM python:3.9
 
 WORKDIR /app
 
 RUN apt-get update
 RUN apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
 RUN python -m pip install  --no-cache-dir --upgrade pip
-# TODO: Add install poetry + self update
+RUN pip install 'poetry==1.1.11'
 COPY pyproject.toml ./
 COPY poetry.lock ./
-# TODO: Refactor
-RUN poetry install --no-interaction
-
+RUN poetry install --no-interaction --no-dev
 
 COPY . .
 
