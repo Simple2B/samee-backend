@@ -32,7 +32,7 @@ class Client(db.Model, ModelMixin):
     zip = db.Column(db.String(32))
     birthday = db.Column(db.String)
     profession = db.Column(db.String(128))
-    solution = db.Column(db.ARRAY(db.String(32)))
+    solution = db.Column(db.ARRAY(db.String))
     type_of_save = db.Column(db.String(32))
     amount_of_money = db.Column(db.Integer)
     smoking = db.Column(db.String(16))
