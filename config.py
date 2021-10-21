@@ -31,6 +31,10 @@ class BaseConfig(object):
     TWILIO_SERVICE_SID = os.environ.get("TWILIO_SERVICE_SID", "Please set twilio service sid")
     TWILIO_PHONE_NUMBER = os.environ.get("TWILIO_PHONE_NUMBER", "Please set twilio phone number")
 
+    """Email service configuration"""
+    GMAIL_USER = os.environ.get("GMAIL_USER", "Please set gmail user")
+    GMAIL_PASSWORD = os.environ.get("GMAIL_PASSWORD", "Please set gmail user password")
+
     @staticmethod
     def configure(app):
         # Implement this method to do further configuration on your app.

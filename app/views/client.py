@@ -5,6 +5,8 @@ from app.models.client_model import ClientModel, ClientPhoneValidation
 from app.models import Client
 from app.logger import log
 from app.controllers.sms_send import send_sms
+# from app.controllers.send_email import send_email
+
 
 client_blueprint = Blueprint("/client", __name__, url_prefix="/api")
 
@@ -48,6 +50,7 @@ def add_client_info(body: ClientModel):
     try:
         send_sms(client.phone_validation_code, client.phone_number)
         log(log.INFO, "Sms was sent to %s number", client.phone_number)
+        log(log.INFO, "Sms was sent to %s email", client.email)
         return jsonify({"Client_id": client.id})
     except Exception as e:
         log(log.ERROR, "Sms wasn't send! Error: [%s]", e)
@@ -64,3 +67,7 @@ def phone_validation(body: ClientPhoneValidation):
             existed_client.phone_valid = True
             existed_client.save()
             return jsonify(dict(message="Client phone number has been successfully verified", category="success"))
+    # try:
+    #     send_email(existed_client.email)
+    # except Exception as e:
+    #     log(log.ERROR, "Sms wasn't send! Error: [%s]", e)
