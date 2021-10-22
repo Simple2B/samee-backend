@@ -32,8 +32,14 @@ class BaseConfig(object):
     TWILIO_PHONE_NUMBER = os.environ.get("TWILIO_PHONE_NUMBER", "Please set twilio phone number")
 
     """Email service configuration"""
-    GMAIL_USER = os.environ.get("GMAIL_USER", "Please set gmail user")
-    GMAIL_PASSWORD = os.environ.get("GMAIL_PASSWORD", "Please set gmail user password")
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME", "Please set mail user")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "Please set mail user password")
+    MAIL_SERVER = os.environ.get("MAIL_SERVER", "Please set mail server")
+    MAIL_PORT = os.environ.get("MAIL_PORT", "Please set mail mail port")
+    MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", "Please set mail use TLS")
+    MAIL_USE_SSL = os.environ.get("MAIL_USE_SSL", "Please set mail use SSL")
+    MAIL_FROM = os.environ.get("MAIL_FROM", "Please set mail from")
+    MAIL_SUBJECT = os.environ.get("MAIL_SUBJECT", "No subject")
 
     @staticmethod
     def configure(app):
