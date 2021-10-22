@@ -63,11 +63,16 @@ def add_client_info(body: ClientModel):
 def phone_validation(body: ClientPhoneValidation):
     existed_client = Client.query.filter_by(id=body.client_id).first()
     if existed_client:
+        log(log.DEBUG, "Have existed client")
         if body.phone_validation_code == existed_client.phone_validation_code:
+            log(log.DEBUG, "received valid validation code ")
             existed_client.phone_valid = True
             existed_client.save()
             send_mail(existed_client)
+            log(log.DEBUG, "Mail send successfully!")
             return jsonify(dict(message="Client phone number has been successfully verified", category="success"))
+        abort(404, description="Bad phone validation")
+    abort(404, description="Invalid user")
     # try:
     #     send_email(existed_client.email)
     # except Exception as e:
