@@ -5,7 +5,7 @@ from app.models.client_model import ClientModel, ClientPhoneValidation
 from app.models import Client
 from app.logger import log
 from app.controllers.sms_send import send_sms
-# from app.controllers.send_email import send_email
+from app.controllers.send_email import send_mail
 
 
 client_blueprint = Blueprint("/client", __name__, url_prefix="/api")
@@ -66,6 +66,7 @@ def phone_validation(body: ClientPhoneValidation):
         if body.phone_validation_code == existed_client.phone_validation_code:
             existed_client.phone_valid = True
             existed_client.save()
+            send_mail(existed_client)
             return jsonify(dict(message="Client phone number has been successfully verified", category="success"))
     # try:
     #     send_email(existed_client.email)

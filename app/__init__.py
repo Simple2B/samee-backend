@@ -7,12 +7,15 @@ from werkzeug.exceptions import HTTPException
 from flask_basicauth import BasicAuth
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
+from flask_mail import Mail
+
 
 # instantiate extensions
 login_manager = LoginManager()
 db = SQLAlchemy()
 basic_auth = BasicAuth()
 bootstrap = Bootstrap()
+mail = Mail()
 
 
 def create_app(environment="development"):
@@ -29,6 +32,7 @@ def create_app(environment="development"):
     # Instantiate app.
     app = Flask(__name__)
     CORS(app)
+
     # Set app config.
     env = os.environ.get("FLASK_ENV", environment)
     app.config.from_object(config[env])
@@ -36,9 +40,9 @@ def create_app(environment="development"):
 
     # Set up extensions.
     db.init_app(app)
-
     bootstrap.init_app(app)
     basic_auth.init_app(app)
+    mail.init_app(app)
 
     # Register blueprints.
     app.register_blueprint(main_blueprint)
