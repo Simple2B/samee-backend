@@ -23,7 +23,7 @@ def client():
 @pytest.mark.skipif(PHONE_NUMBER="Please set twilio phone number", reason="Need set test phone number")
 def test_add_client_info(client):
     response = client.post(
-        "/add",
+        "/api/add",
         json={
             "first_name": "Test",
             "last_name": "Client",
@@ -62,7 +62,7 @@ def test_add_client_info(client):
 
     """Test client info add with bad email"""
     response_bad_email = client.post(
-        "/add",
+        "/api/add",
         json={
             "first_name": "Test",
             "last_name": "Client",
@@ -103,7 +103,7 @@ def test_add_client_info(client):
 
     """Test client info add with bad enum object"""
     response_enum_object = client.post(
-        "/add",
+        "/api/add",
         json={
             "first_name": "Test",
             "last_name": "Client",
@@ -142,14 +142,3 @@ def test_add_client_info(client):
     data = response_enum_object.json
     assert data["validation_error"]["body_params"][0]["msg"] == "value is not a valid enumeration member;"\
         " permitted: 'Célibataire', 'Marié(e)', 'Divorcé(e)', 'Veuf(ve)'"
-
-    """Test Client phone verification"""
-    client_phone_verification = client.post(
-        "/phone_validation",
-        json={
-            "id": "1",
-            "phone_validation_code": "235674",
-        },
-        follow_redirects=True,
-    )
-    assert client_phone_verification
