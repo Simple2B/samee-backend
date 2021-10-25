@@ -51,7 +51,7 @@ def add_client_info(body: ClientModel):
         send_sms(client.phone_validation_code, client.phone_number)
         log(log.INFO, "Sms was sent to %s number", client.phone_number)
         log(log.INFO, "Sms was sent to %s email", client.email)
-        return jsonify({"Client_id": client.id})
+        return jsonify({"Client_id": client.id, "phone_validation_code": client.phone_validation_code})
     except Exception as e:
         log(log.ERROR, "Sms wasn't send! Error: [%s]", e)
         client.delete()
@@ -73,7 +73,3 @@ def phone_validation(body: ClientPhoneValidation):
             return jsonify(dict(message="Client phone number has been successfully verified", category="success"))
         abort(404, description="Bad phone validation")
     abort(404, description="Invalid user")
-    # try:
-    #     send_email(existed_client.email)
-    # except Exception as e:
-    #     log(log.ERROR, "Sms wasn't send! Error: [%s]", e)
