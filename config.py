@@ -36,8 +36,8 @@ class BaseConfig(object):
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "Please set mail user password")
     MAIL_SERVER = os.environ.get("MAIL_SERVER", "Please set mail server")
     MAIL_PORT = int(os.environ.get("MAIL_PORT", 465))
-    MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", "Please set mail use TLS")
-    MAIL_USE_SSL = os.environ.get("MAIL_USE_SSL", "Please set mail use SSL")
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
     MAIL_FROM = os.environ.get("MAIL_FROM", "Please set mail from")
     MAIL_SUBJECT = os.environ.get("MAIL_SUBJECT", "No subject")
 
@@ -60,7 +60,7 @@ class DevelopmentConfig(BaseConfig):
 class TestingConfig(BaseConfig):
     """Testing configuration."""
 
-    TESTING = True
+    # TESTING = True
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "TEST_DATABASE_URL",
