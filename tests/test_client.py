@@ -142,3 +142,45 @@ def test_add_client_info(client):
     data = response_enum_object.json
     assert data["validation_error"]["body_params"][0]["msg"] == "value is not a valid enumeration member;"\
         " permitted: 'Célibataire', 'Marié(e)', 'Divorcé(e)', 'Veuf(ve)'"
+
+    """Test editing existing client"""
+    edit_existing_client = client.post(
+        "/api/add",
+        json={
+            "first_name": "Edit",
+            "last_name": "Test",
+            "email": "test@test.com",
+            "city": "Boston",
+            "street": "test street",
+            "street_number": "45",
+            "phone_number": PHONE_NUMBER,
+            "zip": "52345",
+            "birthday": "2086-10-08 18:00:37",
+            "profession": "teacher",
+            "solution": "granties",
+            "type_of_save": "monthly",
+            "amount_of_money": "25123",
+            "amount_of_savings": "12513212",
+            "smoking": "No",
+            "sex": "homme",
+            "tax": "11254",
+            "scenario_optimistic": "1244213",
+            "scenario_pessimistic": "13123",
+            "scenario_realistic": "13125412",
+            "final_capital": "12315123",
+            "saving_years": "12",
+            "total_savings": "12412534",
+            "fonds_percent": "21",
+            "savings_percent": "15",
+            "interest": "12125412",
+            "occupation": "teacher",
+            "amount_of_fonds": "1242123",
+            "marital_status": "Célibataire",
+        },
+        follow_redirects=True,
+    )
+    assert edit_existing_client
+    assert edit_existing_client.status_code == 200
+    data = edit_existing_client.json()
+    assert data["first_name"] == "Edit"
+    assert data["last_name"] == "Test"
