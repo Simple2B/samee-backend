@@ -14,7 +14,9 @@ client_blueprint = Blueprint("/client", __name__, url_prefix="/api")
 @client_blueprint.route("/add", methods=["POST"])
 @validate()
 def add_client_info(body: ClientModel):
-
+    exitsting_client_phone_number = Client.query.filter(Client.phone_number == body.phone_number)
+    if exitsting_client_phone_number:
+        exitsting_client_phone_number.delete()
     client = Client(
         first_name=body.first_name,
         last_name=body.last_name,
@@ -50,7 +52,10 @@ def add_client_info(body: ClientModel):
     try:
         send_sms(client.phone_validation_code, client.phone_number)
         log(log.INFO, "Sms was sent to %s number", client.phone_number)
-        return jsonify({"Client_id": client.id, "phone_validation_code": client.phone_validation_code})
+        return jsonify({
+            "Client_id": client.id,
+            "phone_validation_code": client.phone_validation_code,
+            "last_name": client.last_name})
     except Exception as e:
         log(log.ERROR, "Sms wasn't send! Error: [%s]", e)
         client.delete()
