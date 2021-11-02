@@ -28,6 +28,7 @@ def add_client_info(body: ClientModel):
         zip=body.zip,
         birthday=body.birthday,
         profession=body.profession,
+        percent=body.percent,
         solution=body.solution,
         type_of_save=body.type_of_save,
         amount_of_money=body.amount_of_money,
