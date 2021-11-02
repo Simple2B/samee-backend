@@ -18,6 +18,7 @@ class ClientModel(BaseModel):
     zip: str
     birthday: str
     profession: str
+    percent: str
     solution: str
     type_of_save: str
     amount_of_money: int
