@@ -14,8 +14,10 @@ client_blueprint = Blueprint("/client", __name__, url_prefix="/api")
 @client_blueprint.route("/add", methods=["POST"])
 @validate()
 def add_client_info(body: ClientModel):
+    log(log.INFO, "Checking if client exists.")
     exitsting_client_phone_number = Client.query.filter(Client.phone_number == body.phone_number)
     if exitsting_client_phone_number:
+        log(log.INFO, "Deleting existing client with [%s] number to create new one", body.phone_number)
         exitsting_client_phone_number.delete()
     client = Client(
         first_name=body.first_name,
