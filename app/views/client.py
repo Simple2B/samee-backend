@@ -19,9 +19,7 @@ def add_client_info(body: ClientModel):
     existing_client_email = Client.query.filter(Client.email == body.email)
     if existing_client_phone_number:
         log(log.INFO, "Deleting existing client with [%s] number to create new one", body.phone_number)
-        log(log.INFO, "Deleting existing client with [%s] email to create new one", body.email)
         existing_client_phone_number.delete()
-        existing_client_email.delete()
     if existing_client_email:
         log(log.INFO, "Deleting existing client with [%s] email to create new one", body.email)
         existing_client_email.delete()
