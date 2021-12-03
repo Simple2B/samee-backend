@@ -23,8 +23,7 @@ def add_client_info(body: ClientModel):
     if existing_client_email:
         log(log.INFO, "Deleting existing client with [%s] email to create new one", body.email)
         existing_client_email.delete()
-    if not body:
-        log(log.INFO, "Got bad data from frontend. Data: [%s]", body)
+    log(log.INFO, "Got bad data from frontend. Data: [%s]", body)
     client = Client(
         first_name=body.first_name,
         last_name=body.last_name,
