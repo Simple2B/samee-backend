@@ -11,7 +11,7 @@ from app.controllers.send_email import send_mail
 client_blueprint = Blueprint("/client", __name__, url_prefix="/api")
 
 
-@client_blueprint.route("/add", methods=["POST"])
+@client_blueprint.route("/add/", methods=["POST"])
 @validate()
 def add_client_info(body: ClientModel):
     log(log.INFO, "Checking if client exists.")
@@ -23,6 +23,8 @@ def add_client_info(body: ClientModel):
     if existing_client_email:
         log(log.INFO, "Deleting existing client with [%s] email to create new one", body.email)
         existing_client_email.delete()
+    if not body:
+        log(log.INFO, "Got bad data from frontend. Data: [%s]", body)
     client = Client(
         first_name=body.first_name,
         last_name=body.last_name,
@@ -69,7 +71,7 @@ def add_client_info(body: ClientModel):
         abort(404, description="Can't send SMS")
 
 
-@client_blueprint.route("/phone_validation", methods=["Post"])
+@client_blueprint.route("/phone_validation/", methods=["Post"])
 @validate()
 def phone_validation(body: ClientPhoneValidation):
     existed_client = Client.query.filter_by(id=body.client_id).first()
