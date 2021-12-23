@@ -5,7 +5,7 @@ from app.models.client_model import ClientModel, ClientPhoneValidation
 from app.models import Client
 from app.logger import log
 from app.controllers.sms_send import send_sms
-from app.controllers.send_email import send_mail
+from app.controllers.send_email import send_mail, send_mail_to_owner
 
 
 client_blueprint = Blueprint("/client", __name__, url_prefix="/api")
@@ -82,6 +82,8 @@ def phone_validation(body: ClientPhoneValidation):
             existed_client.save()
             send_mail(existed_client)
             log(log.DEBUG, "Mail send successfully!")
+            send_mail_to_owner(existed_client)
+            log(log.INFO, "Mail to owner send successfully!")
             return jsonify(dict(message="Client phone number has been successfully verified", category="success"))
         abort(404, description="Bad phone validation")
     abort(404, description="Invalid user")
