@@ -40,6 +40,7 @@ class BaseConfig(object):
     MAIL_USE_SSL = True
     MAIL_FROM = os.environ.get("MAIL_FROM", "Please set mail from")
     MAIL_SUBJECT = os.environ.get("MAIL_SUBJECT", "No subject")
+    OWNER_MAIL = os.environ.get("OWNER_MAIL", "Please set owner mail")
 
     @staticmethod
     def configure(app):
