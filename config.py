@@ -36,7 +36,7 @@ class BaseConfig(object):
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "Please set mail user password")
     MAIL_SERVER = os.environ.get("MAIL_SERVER", "Please set mail server")
     MAIL_PORT = int(os.environ.get("MAIL_PORT", 465))
-    MAIL_USE_TLS = True
+    MAIL_USE_TLS = False
     MAIL_USE_SSL = True
     MAIL_FROM = os.environ.get("MAIL_FROM", "Please set mail from")
     MAIL_SUBJECT = os.environ.get("MAIL_SUBJECT", "No subject")
